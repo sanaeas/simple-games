@@ -1,4 +1,5 @@
 const grid = document.querySelector('.grid')
+const scoreDisplay = document.getElementById('score')
 const blockWidth = 100
 const blockHeight = 20
 const ballDiameter = 20
@@ -107,7 +108,7 @@ function moveBall() {
     checkForCollisions()
 }
 
-// timerId = setInterval(moveBall, 30)
+timerId = setInterval(moveBall, 30)
 
 // Check for collisions
 function checkForCollisions() {
@@ -117,6 +118,13 @@ function checkForCollisions() {
         ballPosition[0] <= 0
         ) {
         changeDirection()
+    }
+
+    // check for game over
+    if (ballPosition[1] <= 0) {
+        clearInterval(timerId);
+        scoreDisplay.innerHTML = 'You lose'
+        document.removeEventListener('keydown', moveUser)
     }
 }
 
